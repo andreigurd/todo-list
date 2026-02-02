@@ -123,6 +123,52 @@ def view_tasks():
     print(tabulate(tasks, headers="keys", tablefmt="fancy_grid"))
 
 #-----------------------------------------------------------------------
+#   option [3] view by priority
+#-----------------------------------------------------------------------
+
+def view_priority():
+    # re order list to group by priority high to low. may need to numerate where high = 3 or something like that.
+    numbered_tasks_list = []
+    for task in tasks:
+        if task["priority"] == "high":
+            task_priority = 1
+        elif task["priority"] == "medium":
+            task_priority = 2
+        else:
+            task_priority = 3 
+
+        numbered_tasks_dict = {
+            "priority number" : task_priority,
+            "task" : task["task"],
+            "description" : task["description"],
+            "category" : task["category"],
+            "priority" : task["priority"],
+            "due date" : task["due date"],
+            "status" : task["status"]
+        }
+
+        numbered_tasks_list.append(numbered_tasks_dict)
+
+    #sort list by priorities
+    sorted_list = sorted(numbered_tasks_list, key=lambda item: item["priority number"])
+
+    # remove priority number
+    numberless_task_list = []
+    for task_item in sorted_list:
+        tasks_dict = {            
+            "task" : task_item["task"],
+            "description" : task_item["description"],
+            "category" : task_item["category"],
+            "priority" : task_item["priority"],
+            "due date" : task_item["due date"],
+            "status" : task_item["status"]
+        }
+
+        numberless_task_list.append(tasks_dict)
+
+    print(tabulate(numberless_task_list,headers = "keys", tablefmt="grid"))
+
+#-----------------------------------------------------------------------
 #   function to write to tasks json
 #-----------------------------------------------------------------------
 def write_json():
