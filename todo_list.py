@@ -1,24 +1,29 @@
 import json
 from tabulate import tabulate
 from datetime import datetime,date,timedelta
+
+valid_priority = ['high', 'medium', 'low']
+valid_status = ['not started', 'in progress', 'complete']
+valid_category = ["work", "personal", "shopping"]
+
 #-----------------------------------------------------------------------
-#   opening expenses json file
+#   opening tasks json file
 #-----------------------------------------------------------------------
 try:
     with open('tasks.json', 'r') as file:
-        contacts = json.load(file)
+        tasks = json.load(file)
 except FileNotFoundError:
-    print("Contacts file not found. Blank list created.")
-    contacts = [] # makes an empty list
+    print("Tasks file not found. Blank list created.")
+    tasks = [] # makes an empty list
 except json.JSONDecodeError:
-    print("Issue loading Contacts file. File empty or invalid JSON file. Blank Contacts list created.")
-    contacts = []
+    print("Issue loading Tasks file. File empty or invalid JSON file. Blank Tasks list created.")
+    tasks = []
 except ValueError:
-    print("Invalid Contact item. Blank list created.")
-    contacts = []
+    print("Invalid Tasks item. Blank list created.")
+    tasks = []
 except PermissionError:
-    print("Need permission to access Contacts file. Blank Contacts list created.")
-    contacts = []
+    print("Need permission to access Tasks file. Blank Tasks list created.")
+    tasks = []
 
 
 #-----------------------------------------------------------------------
@@ -36,15 +41,74 @@ def show_menu():
 
 
 #-----------------------------------------------------------------------
-#   option [1] Add Contact
+#   option [1] Add task
 #-----------------------------------------------------------------------
 
+def add_task():
+    # Each task should have:
+# Description
+# Priority (High, Medium, Low)
+# Due date
+# Status (Not Started, In Progress, Complete)
+
+    while True:
+        try:
+            task = str(input("Enter task: ").lower())
+            if task == "":
+                print("Blank is invalid entry. Please try again.")
+            else:
+                break                
+        except ValueError:
+            print("Invalid entry. Please try again.")
+
+    while True:
+        try:
+            description = str(input("Enter task description: ").lower())
+            if description == "":
+                print("Blank is invalid entry. Please try again.")
+            else:
+                break                
+        except ValueError:
+            print("Invalid entry. Please try again.")
+
+    while True:        
+        category = input("Enter category (Work, Personal, Shopping): ").lower()
+        if category in valid_category:
+            break
+        else:
+            print("Invalid Category. Please try again.")
+
+    while True:        
+        priority = input("Select task priority (High, Medium, Low): ").lower()
+        if priority in valid_priority:
+            break
+        else:
+            print("Invalid selection. Please try again.")
+
+    while True:
+        try:
+            due_date = str(input("Enter task due date in (yyyy-mm-dd) format: ").lower())
+            if due_date == "":
+                print("Blank is invalid entry. Please try again.")
+            else:
+                break                
+        except ValueError:
+            print("Invalid entry. Please try again.")
+
+    while True:        
+        status = input("Select task priority (Not Started, In Progress, Complete): ").lower()
+        if status in valid_status:
+            break
+        else:
+            print("Invalid selection. Please try again.")
+
+
 #-----------------------------------------------------------------------
-#   function to write to contacts json
+#   function to write to tasks json
 #-----------------------------------------------------------------------
 def write_json():
     with open('tasks.json', 'w') as file:
-        json.dump(contacts, file, indent=4)
+        json.dump(tasks, file, indent=4)
         
 
 #-----------------------------------------------------------------------
@@ -75,3 +139,4 @@ while True:
 
     else:
         print("Invalid action. Please try again.")
+
