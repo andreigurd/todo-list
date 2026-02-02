@@ -102,6 +102,18 @@ def add_task():
         else:
             print("Invalid selection. Please try again.")
 
+    task_item = {
+        "task" : task,
+        "description" : description,
+        "category" : category,
+        "priority" : priority,
+        "due date" : due_date,
+        "status" : status
+    }
+
+    tasks.append(task_item)
+    print(f'{task} added.')
+
 
 #-----------------------------------------------------------------------
 #   function to write to tasks json
