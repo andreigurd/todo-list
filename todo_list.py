@@ -114,6 +114,13 @@ def add_task():
     tasks.append(task_item)
     print(f'{task} added.')
 
+#-----------------------------------------------------------------------
+#   option [2] view all tasks
+#-----------------------------------------------------------------------
+
+def view_tasks():
+    print("Displaying All Tasks")
+    print(tabulate(tasks, headers="keys", tablefmt="fancy_grid"))
 
 #-----------------------------------------------------------------------
 #   function to write to tasks json
