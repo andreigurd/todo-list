@@ -25,7 +25,6 @@ except PermissionError:
     print("Need permission to access Tasks file. Blank Tasks list created.")
     tasks = []
 
-
 #-----------------------------------------------------------------------
 #   showing menu
 #-----------------------------------------------------------------------
@@ -45,11 +44,6 @@ def show_menu():
 #-----------------------------------------------------------------------
 
 def add_task():
-    # Each task should have:
-# Description
-# Priority (High, Medium, Low)
-# Due date
-# Status (Not Started, In Progress, Complete)
 
     while True:
         try:
@@ -188,13 +182,9 @@ def view_status():
     print(tabulate(searched_list,headers = "keys", tablefmt="grid"))
 
 #-----------------------------------------------------------------------
-#   option [5] Mark complete
+#    display numbered list to choose from
 #-----------------------------------------------------------------------
-
-def mark_complete():
-
-    # display numbered list to choose from.
-
+def create_numbered_list():
     print('Displaying All Tasks')
     numbered_list = []    
     for number, task_item in enumerate(tasks, start=1):
@@ -210,7 +200,14 @@ def mark_complete():
             numbered_list.append(numbered_task)
 
     print(tabulate(numbered_list,headers = "keys", tablefmt="grid"))
-    
+#-----------------------------------------------------------------------
+#   option [5] Mark complete
+#-----------------------------------------------------------------------
+
+def mark_complete():
+    # display numbered list to choose from.
+    create_numbered_list()    
+
     # user chooses task # to mark complete.
     while True:
         try:
@@ -225,11 +222,21 @@ def mark_complete():
 
             
     # choice-1 is index for global tasks list that we want to mark complete.
-    selected_task = tasks[choice-1] # note changes to selected_tasks will affect the dictionary under index choice-1 in the global list tasks.
-    selected_task['status'] = 'complete'
+    selected_task = tasks[choice-1]
+    selected_task['status'] = 'complete' 
     print(f'({selected_task["task"]}) task marked completed.')
         
     print(tabulate(tasks,headers = "keys", tablefmt="grid"))
+
+    #-----------------------------------------------------------------------
+#   option [6] delete contact
+#-----------------------------------------------------------------------
+
+def delete_contact():
+    # show all tasks
+    view_tasks()
+
+
 
 #-----------------------------------------------------------------------
 #   function to write to tasks json
