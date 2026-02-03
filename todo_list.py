@@ -29,7 +29,8 @@ except PermissionError:
 #   showing menu
 #-----------------------------------------------------------------------
 
-def show_menu():    
+def show_menu():
+    print("")    
     print("[0] Exit")
     print("[1] Add task")
     print("[2] View all tasks")
@@ -160,7 +161,7 @@ def view_priority():
 
         numberless_task_list.append(tasks_dict)
 
-    print(tabulate(numberless_task_list,headers = "keys", tablefmt="grid"))
+    print(tabulate(numberless_task_list,headers = "keys", tablefmt="fancy_grid"))
 
 #-----------------------------------------------------------------------
 #   option [4] view by status
@@ -179,7 +180,7 @@ def view_status():
         if search_term == task['status']:
             searched_list.append(task)
         
-    print(tabulate(searched_list,headers = "keys", tablefmt="grid"))
+    print(tabulate(searched_list,headers = "keys", tablefmt="fancy_grid"))
 
 #-----------------------------------------------------------------------
 #    display numbered list to choose from
@@ -199,7 +200,7 @@ def create_numbered_list():
             }                
             numbered_list.append(numbered_task)
 
-    print(tabulate(numbered_list,headers = "keys", tablefmt="grid"))
+    print(tabulate(numbered_list,headers = "keys", tablefmt="fancy_grid"))
 #-----------------------------------------------------------------------
 #   option [5] Mark complete
 #-----------------------------------------------------------------------
@@ -226,17 +227,33 @@ def mark_complete():
     selected_task['status'] = 'complete' 
     print(f'({selected_task["task"]}) task marked completed.')
         
-    print(tabulate(tasks,headers = "keys", tablefmt="grid"))
+    print(tabulate(tasks,headers = "keys", tablefmt="fancy_grid"))
 
     #-----------------------------------------------------------------------
 #   option [6] delete contact
 #-----------------------------------------------------------------------
 
 def delete_contact():
-    # show all tasks
-    view_tasks()
+    # display numbered list to choose from.
+    create_numbered_list()
 
+    # user chooses task # to delete.
+    removed_task_list = []
+    while True:
+        try:
+            choice = int(input("Select task to delete: "))
+            if 1 <= choice and choice <= len(tasks):
+                print(f"Task number {choice} deleted.")                
+                removed_task = tasks.pop(choice-1) 
+                removed_task_list.append(removed_task)                               
+                print(tabulate(removed_task_list,headers = "keys", tablefmt="fancy_grid"))
+                write_json()
+                break
+            else:
+                print("Number out of range. Please try again.")
 
+        except ValueError:
+            print("Invalid entry. Please try again.")
 
 #-----------------------------------------------------------------------
 #   function to write to tasks json
