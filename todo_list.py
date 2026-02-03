@@ -187,7 +187,49 @@ def view_status():
         
     print(tabulate(searched_list,headers = "keys", tablefmt="grid"))
 
+#-----------------------------------------------------------------------
+#   option [5] Mark complete
+#-----------------------------------------------------------------------
 
+def mark_complete():
+
+    # display numbered list to choose from.
+
+    print('Displaying All Tasks')
+    numbered_list = []    
+    for number, task_item in enumerate(tasks, start=1):
+            numbered_task = {
+            "number": number,
+            "task" : task_item["task"],
+            "description" : task_item["description"],
+            "category" : task_item["category"],
+            "priority" : task_item["priority"],
+            "due date" : task_item["due date"],
+            "status" : task_item["status"]
+            }                
+            numbered_list.append(numbered_task)
+
+    print(tabulate(numbered_list,headers = "keys", tablefmt="grid"))
+    
+    # user chooses task # to mark complete.
+    while True:
+        try:
+            choice = int(input("Select task to mark complete: "))
+            if 1 <= choice and choice <= len(tasks):
+                break
+            else:
+                print("Number out of range. Please try again.")
+
+        except ValueError:
+            print("Invalid entry. Please try again.")
+
+            
+    # choice-1 is index for global tasks list that we want to mark complete.
+    selected_task = tasks[choice-1] # note changes to selected_tasks will affect the dictionary under index choice-1 in the global list tasks.
+    selected_task['status'] = 'complete'
+    print(f'({selected_task["task"]}) task marked completed.')
+        
+    print(tabulate(tasks,headers = "keys", tablefmt="grid"))
 
 #-----------------------------------------------------------------------
 #   function to write to tasks json
