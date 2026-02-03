@@ -96,7 +96,7 @@ def add_task():
             print("Invalid entry. Please try again.")
 
     while True:        
-        status = input("Select task priority (Not Started, In Progress, Complete): ").lower()
+        status = input("Select task status (Not Started, In Progress, Complete): ").lower()
         if status in valid_status:
             break
         else:
@@ -169,6 +169,27 @@ def view_priority():
     print(tabulate(numberless_task_list,headers = "keys", tablefmt="grid"))
 
 #-----------------------------------------------------------------------
+#   option [4] view by status
+#-----------------------------------------------------------------------
+
+def view_status():    
+    while True:
+        search_term = input("Enter status to view (Not Started, In Progress, Complete): ").lower()
+        if search_term in valid_status:
+            break
+        else:
+            print("Invalid Category. Please try again.")
+    
+    searched_list = []
+    for task in tasks:
+        if search_term == task['status']:
+            searched_list.append(task)
+        
+    print(tabulate(searched_list,headers = "keys", tablefmt="grid"))
+
+
+
+#-----------------------------------------------------------------------
 #   function to write to tasks json
 #-----------------------------------------------------------------------
 def write_json():
@@ -197,10 +218,11 @@ while True:
     elif option == '4': 
         view_status()
     elif option == '5': 
-        mark_complete()    
+        mark_complete()
+        write_json()    
     elif option == '6':
         delete_contact()
-        write_json     
+        write_json()     
 
     else:
         print("Invalid action. Please try again.")
