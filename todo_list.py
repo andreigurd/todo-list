@@ -173,7 +173,7 @@ def view_status():
         if search_term in valid_status:
             break
         else:
-            print("Invalid Category. Please try again.")
+            print("Invalid Status. Please try again.")
     
     searched_list = []
     for task in tasks:
@@ -201,8 +201,29 @@ def create_numbered_list():
             numbered_list.append(numbered_task)
 
     print(tabulate(numbered_list,headers = "keys", tablefmt="fancy_grid"))
+
 #-----------------------------------------------------------------------
-#   option [5] Mark complete
+#   option [5] view by status
+#-----------------------------------------------------------------------
+
+def view_category():
+    while True:
+        search_term = input("Enter category to view (Work, Personal, Shopping): ").lower()
+        if search_term in valid_category:
+            break
+        else:
+            print("Invalid Category. Please try again.")
+    
+    searched_list = []
+    for task in tasks:
+        if search_term == task['category']:
+            searched_list.append(task)
+        
+    print(tabulate(searched_list,headers = "keys", tablefmt="fancy_grid"))
+
+
+#-----------------------------------------------------------------------
+#   option [6] Mark complete
 #-----------------------------------------------------------------------
 
 def mark_complete():
@@ -230,7 +251,7 @@ def mark_complete():
     print(tabulate(tasks,headers = "keys", tablefmt="fancy_grid"))
 
     #-----------------------------------------------------------------------
-#   option [6] delete contact
+#   option [7] delete contact
 #-----------------------------------------------------------------------
 
 def delete_contact():
@@ -280,13 +301,15 @@ while True:
     elif option == '2':
         view_tasks()
     elif option == '3': 
-        view_priority()
+        view_priority()    
     elif option == '4': 
         view_status()
     elif option == '5': 
+        view_category()
+    elif option == '6': 
         mark_complete()
         write_json()    
-    elif option == '6':
+    elif option == '7':
         delete_contact()
         write_json()     
 
