@@ -14,7 +14,7 @@ try:
         tasks = json.load(file)
 except FileNotFoundError:
     print("Tasks file not found. Blank list created.")
-    tasks = [] # makes an empty list
+    tasks = []
 except json.JSONDecodeError:
     print("Issue loading Tasks file. File empty or invalid JSON file. Blank Tasks list created.")
     tasks = []
@@ -30,15 +30,16 @@ except PermissionError:
 #-----------------------------------------------------------------------
 
 def show_menu():
-    print("")    
+    print("")
+    print("Welcome to Task Tracker!")    
     print("[0] Exit")
     print("[1] Add task")
     print("[2] View all tasks")
     print("[3] View by priority")
     print("[4] View by status")
-    print("[5] Mark complete")
-    print("[6] Delete task")   
-
+    print("[5] View by category")
+    print("[6] Mark complete")
+    print("[7] Delete task")   
 
 #-----------------------------------------------------------------------
 #   option [1] Add task
@@ -221,7 +222,6 @@ def view_category():
         
     print(tabulate(searched_list,headers = "keys", tablefmt="fancy_grid"))
 
-
 #-----------------------------------------------------------------------
 #   option [6] Mark complete
 #-----------------------------------------------------------------------
@@ -250,7 +250,7 @@ def mark_complete():
         
     print(tabulate(tasks,headers = "keys", tablefmt="fancy_grid"))
 
-    #-----------------------------------------------------------------------
+#-----------------------------------------------------------------------
 #   option [7] delete contact
 #-----------------------------------------------------------------------
 
@@ -281,8 +281,7 @@ def delete_contact():
 #-----------------------------------------------------------------------
 def write_json():
     with open('tasks.json', 'w') as file:
-        json.dump(tasks, file, indent=4)
-        
+        json.dump(tasks, file, indent=4)        
 
 #-----------------------------------------------------------------------
 #   while loop to get user input
@@ -315,4 +314,3 @@ while True:
 
     else:
         print("Invalid action. Please try again.")
-
