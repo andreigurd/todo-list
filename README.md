@@ -31,6 +31,7 @@ python todo_list.py
 ![Mark Complete](screenshots/mark_complete.png)
 
 ## 🧠 What I Learned
+- Making a Plan.md file at begining was very valuable. Helped plan out menu and functions. Avoided re numbering and re work.
 - Making a global valid input variable is valuable when restricting user input.
 - Displaying tasks by priority level from high priority to low was difficult. Tasks were assigned numbers 1 to 3 without displaying to user to allow chronological sorting.
 - I would display tasks differently to only show tasks that have been started in the mark complete option/feature to avoid marking not started or already complete tasks complete.
